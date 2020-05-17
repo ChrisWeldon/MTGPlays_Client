@@ -1,0 +1,20 @@
+.rarity {
+
+}
+
+.mythic-rare {
+  background : #e17604;
+}
+
+.rare {
+  background : #d0b573;
+}
+
+.uncommon {
+
+  background : #9bbccc
+}
+
+.common {
+  background: #000000;
+}
