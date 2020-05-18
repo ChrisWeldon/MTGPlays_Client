@@ -2,7 +2,6 @@
 
 <fieldset class="form-inline">
   <div class="form-group">
-    <label for="typeahead-http">Search for a Card:</label>
     <input id="typeahead-http" type="text" class="form-control mx-sm-3" [class.is-invalid]="searchFailed"  (selectItem)="selectItem($event)" [(ngModel)]="model" [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatter" placeholder="Card Search" />
     <small *ngIf="searching" class="form-text text-muted">searching...</small>
     <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>

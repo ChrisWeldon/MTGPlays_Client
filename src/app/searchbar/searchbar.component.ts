@@ -58,7 +58,6 @@ export class SearchbarComponent implements OnInit {
             return of([]);
           }))
       ),
-      tap((r)=>console.log(r)),
       //map(results => this.getTitles(results)),
       tap(() => this.searching = false)
     )

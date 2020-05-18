@@ -26,7 +26,7 @@ export class CardDetailsComponent implements OnInit {
   colors = COLORS;
 
   ngOnInit(): void {
-    this.getCard("Arclight Phoenix");
+    this.getCard("Stomping Ground");
     this.chartService.cardEvent.subscribe((card:Card)=>{
       if(this.card){
         this.card=card

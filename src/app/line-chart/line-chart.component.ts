@@ -25,16 +25,6 @@ export class LineChartComponent implements OnInit {
         {
           id: 'y-axis-0',
           position: 'left',
-        },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.3)',
-          },
-          ticks: {
-            fontColor: 'red',
-          }
         }
       ]
     },
@@ -57,6 +47,22 @@ export class LineChartComponent implements OnInit {
     },
   };
   public lineChartColors: Color[] = [
+    { // blue
+      backgroundColor: 'rgba(0,0,255,0.5)',
+      borderColor: 'blue',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // red
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -72,18 +78,10 @@ export class LineChartComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
   public lineChartLegend = true;
-  public lineChartType = 'line';
+  public lineChartType = 'bar';
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
@@ -105,22 +103,20 @@ export class LineChartComponent implements OnInit {
     if(!data['tot_occ']){
       data['tot_occ'] = {};
     }
-    this.lineChartData[0].data = Object.values(data['tot_occ']) as number[];
-    this.lineChartLabels = Object.keys(data['tot_occ']);
+
+    let values = this.elementWiseDivide(Object.values(data['tot_occ']), Object.values(data['deck_nums']));
+    this.lineChartData[0].data = values as number[];
+    this.lineChartLabels = Object.values(data['date']);
     this.chart.update();
   }
 
-  public randomize(): void {
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        this.lineChartData[i].data[j] = this.generateNumber(i);
-      }
+  elementWiseDivide(a, b){
+    let div = [];
+    // console.log(b)
+    for(let i=0; i<a.length;i++){
+        div.push(a[i]/b[i]);
     }
-    this.chart.update();
-  }
-
-  private generateNumber(i: number) {
-    return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
+    return div
   }
 
   // events
@@ -137,22 +133,8 @@ export class LineChartComponent implements OnInit {
     this.chart.hideDataset(1, !isHidden);
   }
 
-  public pushOne() {
-    this.lineChartData.forEach((x, i) => {
-      const num = this.generateNumber(i);
-      const data: number[] = x.data as number[];
-      data.push(num);
-    });
-    this.lineChartLabels.push(`Label ${this.lineChartLabels.length}`);
-  }
-
   public changeColor() {
     this.lineChartColors[2].borderColor = 'green';
     this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-  }
-
-  public changeLabel() {
-    this.lineChartLabels[2] = ['1st Line', '2nd Line'];
-    // this.chart.update();
   }
 }

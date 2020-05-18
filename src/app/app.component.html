@@ -7,10 +7,20 @@
 <div class="content" role="main">
 </div>
 
+<div class='container'>
+  <div class="row">
+    <app-searchbar></app-searchbar>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <app-card-details></app-card-details>
+    </div>
+    <div class="col-8">
+      <app-line-chart></app-line-chart>
+    </div>
+  </div>
+</div>
 
-<app-searchbar></app-searchbar>
-<app-card-details></app-card-details>
-<app-line-chart></app-line-chart>
 
 
 <router-outlet></router-outlet>
